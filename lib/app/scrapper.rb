@@ -1,10 +1,5 @@
 require 'open-uri'
-
-require 'rubygems'
 require 'pp'
-require 'csv'
-require 'google_drive'
-
 
 class Ville
 	attr_accessor :mairie
@@ -35,14 +30,8 @@ class Ville
 
 		hachier_google.each {|key, value|i = i + 1 
 			ws[i,1]=("#{key}") 
-			ws[i,2]=("#{value}")}s
+			ws[i,2]=("#{value}")}
 		ws.save
-
-		(1..ws.num_rows).each do |row|
-		    (1..ws.num_cols).each do |col|
-				p ws[row, col]
-			end
-		end
 	end
 
 	#save dans fichier.csv
@@ -58,14 +47,12 @@ class Ville
 
 	#save dans fichier.json
 	def save_as_JSON(hachier_json)
-		#hachier_json.each {|key, value| puts "#{key} => #{value}" }
 		File.open("db/emails_jeson.json","w") do |f|
-			#hachier_json.each {|key, value| f.write("#{key} => #{value}".to_json)}
-  			f.write(hachier_json.to_json)
+			hachier_json.each {|key, value| f.write("#{key} => #{value}".to_json+"\n")}
 		end
 	end
 
-	#la def qui scrap le site : http://annuaire-des-mairies.com/val-d-oise.html
+	# scrap du site : http://annuaire-des-mairies.com/val-d-oise.html
 	def scrap
 		def get_townhall_email(townhall_url)
 			page = Nokogiri::HTML(open(townhall_url))

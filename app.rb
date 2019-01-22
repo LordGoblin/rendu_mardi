@@ -5,7 +5,3 @@ $:.unshift File.expand_path("./../lib/app", __FILE__)
 require 'scrapper.rb'
 
 allVille = Ville.new
-
-#puts allVille.mairie
-
-
